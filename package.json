@@ -1,12 +1,1 @@
-{
-  "dependencies": {
-    "three": "0.170.0"
-  },
-  "name": "sari-studio",
-  "version": "1.0.0",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "test": "node tests/commands.test.mjs"
-  }
-}
+{"name":"sari-motion","version":"2.0.0","private":true,"type":"module","scripts":{"test":"node tests/config.test.mjs && node tests/glb.test.mjs"}}
