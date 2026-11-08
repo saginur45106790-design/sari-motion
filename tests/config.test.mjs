@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import {sanitize,parseCommand,defaults,presets} from '../public/config.js';
+assert.deepEqual(sanitize(null),defaults);
+assert.equal(sanitize({quality:'9999',wind:'99',exposure:'-1',color:'javascript:x'}).quality,'360');
+assert.equal(sanitize({wind:'99'}).wind,'1');assert.equal(sanitize({exposure:'-1'}).exposure,'0.5');
+const p=parseCommand('লাল সিল্ক শাড়ি, খোঁপা, ধীরে হাঁটা, সোনালি বিকেল, পেছন থেকে, ১০ সেকেন্ড').values;
+assert.deepEqual(p,{color:'#a9233b',fabric:'silk',hair:'bun',walk:'slow',scene:'golden',camera:'back',duration:'10'});
+assert.equal(parseCommand('১০০ সেকেন্ড').values.duration,undefined);
+assert.equal(parseCommand('চারপাশে').values.camera,'orbit');assert.equal(parseCommand('ঘুরে তাকাবে').values.walk,'lookback');
+assert.deepEqual(parseCommand('ছবি থেকে আসল মানুষ বানাও').values,{});
+for(const preset of Object.values(presets))assert.deepEqual(sanitize(preset),preset);
+console.log('Settings, preset round-trips and command validation passed.');
